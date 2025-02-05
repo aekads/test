@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Screen Area</title>
+</head>
+<body>
+    <h1>Update Screen Area</h1>
+    <table border="1">
+        <tr>
+            <th>Screen ID</th>
+            <th>Screen Name</th>
+            <th>Area</th>
+            <th>Update</th>
+        </tr>
+        <% screens.forEach(screen => { %>
+            <tr>
+                <td><%= screen.screenid %></td>
+                <td><%= screen.screenname %></td>
+                <td>
+                    <form action="/update" method="POST">
+                        <input type="hidden" name="screenid" value="<%= screen.screenid %>">
+                        <input type="text" name="area" value="<%= screen.area %>">
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+</body>
+</html>
