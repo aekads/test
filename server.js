@@ -22,6 +22,7 @@ app.get('/', async (req, res) => {
     const result = await pool.query(query);
     res.render('editData', { authData: result.rows });
   } catch (err) {
+    console.error('Error fetching data:', err);
     res.status(500).send('Error fetching data');
   }
 });
@@ -38,11 +39,25 @@ app.post('/update/:userid', async (req, res) => {
   try {
     const updateQuery = `
       UPDATE public.auth 
-      SET username = $1, password = $2, screenids = $3, token = $4, email = $5,
-          status = $6, role = $7, device_token = $8, slot9_url = $9, slot10_url = $10,
-          slot9_status = $11, slot10_status = $12, per_screen_rent = $13, total_rent = $14,
-          chairman_name = $15, chairman_number = $16, secretary_name = $17,
-          secretary_number = $18, household = $19
+      SET username = COALESCE($1, username),
+          password = COALESCE($2, password),
+          screenids = COALESCE($3, screenids),
+          token = COALESCE($4, token),
+          email = COALESCE($5, email),
+          status = COALESCE($6, status),
+          role = COALESCE($7, role),
+          device_token = COALESCE($8, device_token),
+          slot9_url = COALESCE($9, slot9_url),
+          slot10_url = COALESCE($10, slot10_url),
+          slot9_status = COALESCE($11, slot9_status),
+          slot10_status = COALESCE($12, slot10_status),
+          per_screen_rent = COALESCE($13, per_screen_rent),
+          total_rent = COALESCE($14, total_rent),
+          chairman_name = COALESCE($15, chairman_name),
+          chairman_number = COALESCE($16, chairman_number),
+          secretary_name = COALESCE($17, secretary_name),
+          secretary_number = COALESCE($18, secretary_number),
+          household = COALESCE($19, household)
       WHERE userid = $20
     `;
     await pool.query(updateQuery, [
@@ -54,6 +69,7 @@ app.post('/update/:userid', async (req, res) => {
 
     res.redirect('/');
   } catch (err) {
+    console.error('Error updating data:', err);
     res.status(500).send('Error updating data');
   }
 });
