@@ -2,62 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Management</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border: 1px solid #ddd;
-    }
-    button {
-      padding: 5px 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+  <title>Edit Data</title>
 </head>
 <body>
-  <h1>User Management</h1>
-  <table>
+  <h1>Auth Data Table</h1>
+  <table border="1">
     <thead>
       <tr>
-        <th>User ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Role</th>
-        <th>Device Token</th>
+        <th>userid</th>
+        <th>username</th>
+        <th>password</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <% users.forEach(user => { %>
+      <% authData.forEach(row => { %>
         <tr>
-          <td><%= user.userid %></td>
-          <td><%= user.username %></td>
-          <td><%= user.email %></td>
-          <td><%= user.status %></td>
-          <td><%= user.role %></td>
-          <td><%= user.device_token %></td>
+          <td><%= row.userid %></td>
+          <td><%= row.username %></td>
+          <td><%= row.password %></td>
           <td>
-            <form action="/update/<%= user.userid %>" method="POST">
-              <input type="text" name="username" value="<%= user.username %>" required>
-              <input type="text" name="password" value="<%= user.password %>" required>
-              <input type="email" name="email" value="<%= user.email %>" required>
-              <input type="text" name="status" value="<%= user.status %>">
-              <input type="text" name="role" value="<%= user.role %>">
-              <input type="text" name="device_token" value="<%= user.device_token %>">
+            <form action="/update/<%= row.userid %>" method="POST">
+              <input type="text" name="username" value="<%= row.username %>" required>
+              <input type="text" name="password" value="<%= row.password %>" required>
+              <input type="hidden" name="screenids" value="<%= row.screenids %>">
+              <input type="hidden" name="token" value="<%= row.token %>">
+              <input type="hidden" name="email" value="<%= row.email %>">
+              <input type="hidden" name="status" value="<%= row.status %>">
+              <input type="hidden" name="role" value="<%= row.role %>">
+              <input type="hidden" name="device_token" value="<%= row.device_token %>">
+              <input type="hidden" name="slot9_url" value="<%= row.slot9_url %>">
+              <input type="hidden" name="slot10_url" value="<%= row.slot10_url %>">
+              <input type="hidden" name="slot9_status" value="<%= row.slot9_status %>">
+              <input type="hidden" name="slot10_status" value="<%= row.slot10_status %>">
+              <input type="hidden" name="per_screen_rent" value="<%= row.per_screen_rent %>">
+              <input type="hidden" name="total_rent" value="<%= row.total_rent %>">
+              <input type="hidden" name="chairman_name" value="<%= row.chairman_name %>">
+              <input type="hidden" name="chairman_number" value="<%= row.chairman_number %>">
+              <input type="hidden" name="secretary_name" value="<%= row.secretary_name %>">
+              <input type="hidden" name="secretary_number" value="<%= row.secretary_number %>">
+              <input type="hidden" name="household" value="<%= row.household %>">
               <button type="submit">Update</button>
             </form>
           </td>
