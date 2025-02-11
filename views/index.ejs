@@ -1,32 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Screen Area</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h1>Update Screen Area</h1>
-    <table border="1">
+  <h1>User Management</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Role</th>
+        <th>Device Token</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
         <tr>
-            <th>Screen ID</th>
-            <th>Screen Name</th>
-            <th>Area</th>
-            <th>Update</th>
+          <td><%= user.userid %></td>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td><%= user.status %></td>
+          <td><%= user.role %></td>
+          <td><%= user.device_token %></td>
+          <td>
+            <form action="/update/<%= user.userid %>" method="POST">
+              <input type="text" name="username" value="<%= user.username %>" required>
+              <input type="text" name="password" value="<%= user.password %>" required>
+              <input type="email" name="email" value="<%= user.email %>" required>
+              <input type="text" name="status" value="<%= user.status %>">
+              <input type="text" name="role" value="<%= user.role %>">
+              <input type="text" name="device_token" value="<%= user.device_token %>">
+              <button type="submit">Update</button>
+            </form>
+          </td>
         </tr>
-        <% screens.forEach(screen => { %>
-            <tr>
-                <td><%= screen.screenid %></td>
-                <td><%= screen.screenname %></td>
-                <td>
-                    <form action="/update" method="POST">
-                        <input type="hidden" name="screenid" value="<%= screen.screenid %>">
-                        <input type="text" name="area" value="<%= screen.area %>">
-                        <button type="submit">Update</button>
-                    </form>
-                </td>
-            </tr>
-        <% }); %>
-    </table>
+      <% }) %>
+    </tbody>
+  </table>
 </body>
 </html>
