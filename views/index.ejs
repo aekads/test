@@ -9,9 +9,11 @@
   <table border="1">
     <thead>
       <tr>
-        <th>userid</th>
-        <th>username</th>
-        <th>password</th>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -21,27 +23,31 @@
           <td><%= row.userid %></td>
           <td><%= row.username %></td>
           <td><%= row.password %></td>
+          <td><%= row.email %></td>
+          <td><%= row.status %></td>
           <td>
             <form action="/update/<%= row.userid %>" method="POST">
-              <input type="text" name="username" value="<%= row.username %>" required>
-              <input type="text" name="password" value="<%= row.password %>" required>
-              <input type="hidden" name="screenids" value="<%= row.screenids %>">
-              <input type="hidden" name="token" value="<%= row.token %>">
-              <input type="hidden" name="email" value="<%= row.email %>">
-              <input type="hidden" name="status" value="<%= row.status %>">
-              <input type="hidden" name="role" value="<%= row.role %>">
-              <input type="hidden" name="device_token" value="<%= row.device_token %>">
-              <input type="hidden" name="slot9_url" value="<%= row.slot9_url %>">
-              <input type="hidden" name="slot10_url" value="<%= row.slot10_url %>">
-              <input type="hidden" name="slot9_status" value="<%= row.slot9_status %>">
-              <input type="hidden" name="slot10_status" value="<%= row.slot10_status %>">
-              <input type="hidden" name="per_screen_rent" value="<%= row.per_screen_rent %>">
-              <input type="hidden" name="total_rent" value="<%= row.total_rent %>">
-              <input type="hidden" name="chairman_name" value="<%= row.chairman_name %>">
-              <input type="hidden" name="chairman_number" value="<%= row.chairman_number %>">
-              <input type="hidden" name="secretary_name" value="<%= row.secretary_name %>">
-              <input type="hidden" name="secretary_number" value="<%= row.secretary_number %>">
-              <input type="hidden" name="household" value="<%= row.household %>">
+              <label>Username: <input type="text" name="username" value="<%= row.username || '' %>" required></label>
+              <label>Password: <input type="text" name="password" value="<%= row.password || '' %>" required></label>
+              <label>Email: <input type="text" name="email" value="<%= row.email || '' %>" required></label>
+              <label>Status: <input type="text" name="status" value="<%= row.status || '' %>"></label>
+              
+              <!-- Hidden fields for all other data -->
+              <input type="hidden" name="screenids" value="<%= row.screenids || '' %>">
+              <input type="hidden" name="token" value="<%= row.token || '' %>">
+              <input type="hidden" name="role" value="<%= row.role || '' %>">
+              <input type="hidden" name="device_token" value="<%= row.device_token || '' %>">
+              <input type="hidden" name="slot9_url" value="<%= row.slot9_url || '' %>">
+              <input type="hidden" name="slot10_url" value="<%= row.slot10_url || '' %>">
+              <input type="hidden" name="slot9_status" value="<%= row.slot9_status || '' %>">
+              <input type="hidden" name="slot10_status" value="<%= row.slot10_status || '' %>">
+              <input type="hidden" name="per_screen_rent" value="<%= row.per_screen_rent || '' %>">
+              <input type="hidden" name="total_rent" value="<%= row.total_rent || '' %>">
+              <input type="hidden" name="chairman_name" value="<%= row.chairman_name || '' %>">
+              <input type="hidden" name="chairman_number" value="<%= row.chairman_number || '' %>">
+              <input type="hidden" name="secretary_name" value="<%= row.secretary_name || '' %>">
+              <input type="hidden" name="secretary_number" value="<%= row.secretary_number || '' %>">
+              <input type="hidden" name="household" value="<%= row.household || '' %>">
               <button type="submit">Update</button>
             </form>
           </td>
